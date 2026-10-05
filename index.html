@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoMitra / LokalKirim - Simulator Operasional Multi-Peran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- TOP COMMAND BAR -->
+  <header class="top-nav">
+    <div class="brand-group">
+      <div class="brand-symbol">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">LokalKirim <span class="badge-system">SIMULATOR OPERASIONAL</span></div>
+        <div class="brand-sub">Platform Logistik Hyperlocal & Mitra Terintegrasi</div>
+      </div>
+    </div>
+
+    <!-- VIEWPORT SWITCHER -->
+    <div class="view-switcher" id="viewSwitcher">
+      <button class="view-btn active" data-view="grid4">Semua Peran (4 Panel)</button>
+      <button class="view-btn" data-view="customer">Pelanggan</button>
+      <button class="view-btn" data-view="merchant">Mitra Toko</button>
+      <button class="view-btn" data-view="driver">Kurir</button>
+      <button class="view-btn" data-view="admin">Admin</button>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="nav-actions">
+      <a href="customer.html" target="_blank" class="btn btn-outline" title="Buka Aplikasi Pelanggan Penuh di Tab Baru">
+        App Pelanggan ↗
+      </a>
+      <a href="merchant.html" target="_blank" class="btn btn-outline" title="Buka Portal Mitra Usaha Penuh di Tab Baru">
+        Portal Mitra ↗
+      </a>
+      <a href="driver.html" target="_blank" class="btn btn-outline" title="Buka Aplikasi Mitra Kurir di Tab Baru">
+        Mitra Kurir ↗
+      </a>
+      <a href="admin.html" target="_blank" class="btn btn-outline" title="Buka Konsol Pengawas Admin di Tab Baru">
+        Konsol Admin ↗
+      </a>
+      <button class="btn btn-outline" id="btnAudioToggle" title="Aktifkan atau nonaktifkan audio notifikasi">
+        <span id="audioLabel">Audio Aktif</span>
+      </button>
+      <button class="btn btn-primary" id="btnQuickDemo">
+        Simulasi Alur Penuh
+      </button>
+      <button class="btn btn-outline" id="btnResetData" title="Buka menu reset data">
+        Reset Data
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN SIMULATOR STAGE (4 PANELS) -->
+  <main class="simulator-stage view-grid4" id="simulatorStage">
+
+    <!-- ========================================== -->
+    <!-- 1. CUSTOMER APP (ABUNAWAS STORE STYLE)     -->
+    <!-- ========================================== -->
+    <section class="device-panel" id="panel-customer">
+      <div class="panel-header role-customer">
+        <div class="role-indicator">
+          <span class="dot"></span>
+          <span class="role-name">Aplikasi Pelanggan</span>
+        </div>
+        <div class="panel-header-actions">
+          <a href="customer.html" target="_blank" class="tag-link-external"
+            title="Buka aplikasi pelanggan di tab baru">Layar Penuh ↗</a>
+          <span class="tag-role">Customer</span>
+        </div>
+      </div>
+
+      <div class="device-shell">
+        <iframe src="customer.html" class="simulator-iframe" id="customerIframe" title="Aplikasi Pelanggan"></iframe>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. MERCHANT PORTAL                         -->
+    <!-- ========================================== -->
+    <section class="device-panel" id="panel-merchant">
+      <div class="panel-header role-merchant">
+        <div class="role-indicator">
+          <span class="dot"></span>
+          <span class="role-name">Portal Mitra Usaha</span>
+        </div>
+        <div class="panel-header-actions">
+          <a href="merchant.html" target="_blank" class="tag-link-external" title="Buka portal mitra usaha di tab baru">Layar Penuh ↗</a>
+          <span class="tag-role">Merchant</span>
+        </div>
+      </div>
+
+      <div class="device-shell">
+        <iframe src="merchant.html" class="simulator-iframe" id="merchantIframe" title="Portal Mitra Usaha"></iframe>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. DRIVER APP                              -->
+    <!-- ========================================== -->
+    <section class="device-panel" id="panel-driver">
+      <div class="panel-header role-driver">
+        <div class="role-indicator">
+          <span class="dot"></span>
+          <span class="role-name">Aplikasi Mitra Kurir</span>
+        </div>
+        <div class="panel-header-actions">
+          <a href="driver.html" target="_blank" class="tag-link-external" title="Buka aplikasi mitra kurir di tab baru">Layar Penuh ↗</a>
+          <span class="tag-role">Driver</span>
+        </div>
+      </div>
+
+      <div class="device-shell">
+        <iframe src="driver.html" class="simulator-iframe" id="driverIframe" title="Aplikasi Mitra Kurir"></iframe>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. ADMIN & OPERATOR                        -->
+    <!-- ========================================== -->
+    <section class="device-panel" id="panel-admin">
+      <div class="panel-header role-admin">
+        <div class="role-indicator">
+          <span class="dot"></span>
+          <span class="role-name">Konsol Pengawas Operasional</span>
+        </div>
+        <div class="panel-header-actions">
+          <a href="admin.html" target="_blank" class="tag-link-external" title="Buka konsol pengawas admin di tab baru">Layar Penuh ↗</a>
+          <span class="tag-role">Admin</span>
+        </div>
+      </div>
+
+      <div class="device-shell admin-shell">
+        <iframe src="admin.html" class="simulator-iframe" id="adminIframe" title="Konsol Pengawas Operasional"></iframe>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL RESET DATA SIMULASI -->
+  <div class="modal-backdrop hidden" id="modalResetDialog">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Pengelolaan & Reset Data Operasional</h3>
+        <button class="modal-close" id="btnCloseResetModal" aria-label="Tutup Modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="text-xs text-muted" style="margin-bottom: 4px;">
+          Pilih skenario reset data simulasi platform logistik hyperlocal sesuai kebutuhan pengujian Anda:
+        </p>
+
+        <!-- Opsi 1: Reset Transaksi Saja (Rekomendasi) -->
+        <div class="reset-option-card highlight">
+          <div class="reset-option-title">
+            <span>Reset Transaksi & Buku Kas</span>
+            <span style="font-size: 0.68rem; background: #FEF3C7; color: #B45309; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Rekomendasi Uji Coba</span>
+          </div>
+          <div class="reset-option-desc">
+            Mengosongkan seluruh antrean pesanan, saldo pendapatan kurir, kas COD, omset toko, dan GMV platform ke Rp 0. Data mitra toko, produk katalog, dan armada kurir <b>tetap dipertahankan</b>.
+          </div>
+          <button type="button" class="btn btn-outline" style="border-color: #F59E0B; color: #B45309; margin-top: 6px;" id="btnDoResetTransactions">
+            Kosongkan Transaksi Saja
+          </button>
+        </div>
+
+        <!-- Opsi 2: Reset Total (Standar Pabrik) -->
+        <div class="reset-option-card danger">
+          <div class="reset-option-title">
+            <span style="color: #DC2626;">Reset Seluruh Ekosistem (Standar Pabrik)</span>
+            <span style="font-size: 0.68rem; background: #FEE2E2; color: #DC2626; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Total Reset</span>
+          </div>
+          <div class="reset-option-desc">
+            Mengembalikan seluruh data ke konfigurasi awal bawaan: 3 toko default, 10 produk sembako standar, 3 mitra kurir, tarif default, dan mengosongkan seluruh transaksi.
+          </div>
+          <button type="button" class="btn btn-outline-danger" style="margin-top: 6px;" id="btnDoResetAll">
+            Reset Total ke Standar Pabrik
+          </button>
+        </div>
+
+        <!-- Opsi 3: Pemulihan Master Parsial -->
+        <div style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 4px;">
+          <div class="text-xs font-bold mb-2">Pemulihan Master Data Tertentu:</div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-outline btn-sm" id="btnSubResetProducts">
+              Pulihkan Katalog Produk
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnSubResetMerchants">
+              Pulihkan Mitra Toko
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnSubResetDrivers">
+              Pulihkan Mitra Kurir
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="padding: 10px 18px; background: #F8FAFC; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline" id="btnCancelResetModal">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="toastBox">
+    <div class="toast-body" id="toastMessage">Pemberitahuan</div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

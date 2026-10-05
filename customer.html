@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Sembako Mitra - Belanja Kebutuhan Pokok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="customer.css">
+</head>
+
+<body>
+
+  <!-- TOP APP BAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">LokalKirim Sembako</h1>
+          <p class="brand-subtitle">Pusat Belanja Sembako & Kebutuhan Dapur</p>
+        </div>
+      </div>
+
+      <!-- DESKTOP TOP BAR NAVIGATION MENU (Hidden on Mobile) -->
+      <nav class="desktop-nav-menu" id="desktopNavMenu">
+        <a href="index.html" class="btn btn-outline-nav" id="btnBackToSimulator" title="Kembali ke Simulator 4 Layar">
+          Simulator Multi-Peran
+        </a>
+        <button class="nav-menu-btn" id="btnDeskCart" title="Buka Keranjang Belanja">
+          Keranjang
+          <span class="cart-counter" id="cartDeskBadge">0</span>
+        </button>
+        <button class="nav-menu-btn" id="btnDeskOrders" title="Lihat Riwayat Transaksi">
+          Transaksi
+        </button>
+        <button class="nav-menu-btn nav-auth-btn" id="btnDeskAuth" title="Akun Pengguna">
+          Login
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="page-content">
+
+    <!-- STORE PROFILE HEADER (Synchronized with Merchant Portal) -->
+    <section class="container store-header-section">
+      <div class="store-info-card">
+        <div class="store-badge-row">
+          <div class="store-status-badge open" id="storeStatusBadge">
+            <span class="status-dot"></span>
+            <span id="storeStatusText">Toko Buka</span>
+          </div>
+          <span class="store-type-badge">Mitra Usaha Resmi</span>
+        </div>
+
+        <h2 class="store-display-name" id="storeDisplayName">Toko Berkah Kelontong</h2>
+
+        <div class="store-detail-row">
+          <div class="store-detail-item">
+            <svg class="store-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span id="storeDisplayAddress">Jl. Mawar No. 12, Sektor 4, Komplek Niaga Mandiri</span>
+          </div>
+
+          <div class="store-detail-item">
+            <svg class="store-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="storeDisplaySchedule">Senin – Sabtu &bull; 07:00 – 21:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPACT SERVICE HIGHLIGHT (Mobile-Friendly & Zero Fluff) -->
+    <div class="container highlight-strip">
+      <span class="highlight-pill">Flat Rp 5.000 (0–10 km)</span>
+      <span class="highlight-pill">COD & QRIS</span>
+      <span class="highlight-pill">Kirim Cepat Hari Ini</span>
+    </div>
+
+    <!-- SEARCH & FILTER SECTION -->
+    <section class="container filter-section">
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input"
+          placeholder="Cari beras, minyak, gula, kebutuhan dapur..." autocomplete="off">
+        <button class="search-clear hidden" id="btnSearchClear" aria-label="Hapus Pencarian">&times;</button>
+      </div>
+
+      <!-- CATEGORY PILLS -->
+      <div class="category-wrapper">
+        <div class="category-scroll" id="categoryList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT CATALOG GRID -->
+    <section class="container catalog-section">
+      <div class="section-header">
+        <h2 class="section-title">Katalog Produk</h2>
+        <span class="section-count" id="catalogCounter">10 Produk</span>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING CART BOTTOM BAR (Mobile & Desktop) -->
+  <aside class="floating-cart hidden" id="floatingCart">
+    <div class="container floating-cart-inner">
+      <div class="floating-cart-info">
+        <div class="floating-item-count" id="floatCartItemCount">0 Produk</div>
+        <div class="floating-total-price font-mono" id="floatCartTotalPrice">Rp 0</div>
+      </div>
+      <button class="btn btn-primary btn-float-cart" id="btnFloatingOpenCart">
+        Lihat Keranjang
+      </button>
+    </div>
+  </aside>
+
+  <!-- CART & CHECKOUT DRAWER / MODAL -->
+  <div class="drawer-backdrop hidden" id="drawerBackdrop"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <div class="drawer-header-left">
+        <h3 class="drawer-title">Keranjang Belanja</h3>
+        <span class="badge-item-count font-mono" id="drawerItemBadge">0 Item</span>
+      </div>
+      <button class="drawer-close" id="btnCloseCart" aria-label="Tutup Keranjang">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+
+      <!-- ITEM LIST SECTION -->
+      <div class="drawer-section">
+        <div class="section-label">Rincian Barang</div>
+        <div class="cart-item-list" id="cartItemList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ADDRESS INPUT & SHIPPING CALCULATOR -->
+      <div class="drawer-section">
+        <div class="section-label">Alamat & Lokasi Pengantaran</div>
+        <div class="address-card">
+          <div class="form-group">
+            <label class="form-label" for="inputCustomerName">Nama Penerima</label>
+            <input type="text" id="inputCustomerName" class="form-input" placeholder="Contoh: Ibu Rina / Pak Budi"
+              value="Ibu Siti Aminah">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputCustomerPhone">Nomor WhatsApp</label>
+            <input type="tel" id="inputCustomerPhone" class="form-input" placeholder="Contoh: 081234567890"
+              value="0812-9876-5432">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inputCustomerAddress">Alamat Lengkap & Patokan</label>
+            <textarea id="inputCustomerAddress" class="form-textarea" rows="2"
+              placeholder="Nama Jalan, Nomor Rumah, RT/RW, dan patokan sekitar...">Jl. Melati Indah No. 18, RT 03/RW 05 (Pagar Hitam Depan Masjid)</textarea>
+          </div>
+
+          <!-- Distance & Ongkir Calculation Slider -->
+          <div class="shipping-slider-box">
+            <div class="flex-between mb-1">
+              <span class="text-xs font-semibold">Jarak dari Toko ke Rumah:</span>
+              <span class="text-primary font-bold font-mono" id="labelDistance">3.5 km</span>
+            </div>
+            <input type="range" id="inputDistance" min="0.5" max="18" step="0.5" value="3.5" class="range-slider">
+            <div class="distance-scale flex-between text-xs text-muted">
+              <span>0.5 km</span>
+              <span>Batas Flat: 10 km</span>
+              <span>18 km</span>
+            </div>
+
+            <div class="ongkir-rule-alert mt-2" id="ongkirRuleAlert">
+              Tarif Flat Mitra: 0–10 km hanya Rp 5.000
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENT METHOD SELECTION -->
+      <div class="drawer-section">
+        <div class="section-label">Metode Pembayaran</div>
+        <div class="payment-options">
+          <label class="payment-card active">
+            <input type="radio" name="payMethod" value="COD" checked>
+            <div class="payment-card-body">
+              <div class="payment-title">Bayar di Tempat (COD)</div>
+              <div class="payment-desc">Bayar tunai ke kurir saat barang tiba di rumah.</div>
+            </div>
+          </label>
+
+          <label class="payment-card">
+            <input type="radio" name="payMethod" value="QRIS">
+            <div class="payment-card-body">
+              <div class="payment-title">QRIS / Transfer Bank</div>
+              <div class="payment-desc">Pindai kode QRIS statis toko saat pesanan dibuat.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- SUMMARY BILL -->
+      <div class="drawer-section">
+        <div class="section-label">Ringkasan Pembayaran</div>
+        <div class="bill-summary-box">
+          <div class="bill-row">
+            <span>Subtotal Produk</span>
+            <span class="font-mono" id="billSubtotal">Rp 0</span>
+          </div>
+          <div class="bill-row">
+            <span>Ongkos Kirim Kurir</span>
+            <span class="font-mono text-primary font-bold" id="billOngkir">Rp 5.000</span>
+          </div>
+          <div class="bill-row bill-divider">
+            <span class="font-bold">Total Tagihan</span>
+            <span class="font-mono font-bold bill-total" id="billTotal">Rp 5.000</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DRAWER FOOTER / CHECKOUT BUTTONS -->
+    <div class="drawer-footer">
+      <button class="btn btn-primary btn-block btn-lg" id="btnSubmitOrder">
+        Konfirmasi & Buat Pesanan
+      </button>
+      <button class="btn btn-outline-wa btn-block mt-2" id="btnOrderViaWhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+        Pesan Otomatis via WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS / TRACKING MODAL -->
+  <div class="modal-backdrop hidden" id="orderSuccessModal">
+    <div class="modal-card">
+      <div class="modal-icon-success">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h3 class="modal-title">Pesanan Berhasil Dibuat</h3>
+      <p class="modal-subtitle">
+        Pesanan <b class="font-mono text-primary" id="successOrderId">#ORD-0000</b> telah diteruskan ke mitra toko dan
+        masuk ke sistem penugasan kurir.
+      </p>
+
+      <div class="order-receipt-box">
+        <div class="receipt-row">
+          <span>Penerima:</span>
+          <span class="font-bold" id="receiptCustomerName">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Alamat:</span>
+          <span id="receiptAddress">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Total Pembayaran:</span>
+          <span class="font-bold font-mono text-primary" id="receiptTotal">-</span>
+        </div>
+        <div class="receipt-row">
+          <span>Metode:</span>
+          <span class="font-bold" id="receiptPaymentMethod">-</span>
+        </div>
+      </div>
+
+      <div class="tracking-preview-box">
+        <div class="font-bold text-xs mb-1">Status Penanganan Saat Ini:</div>
+        <div class="badge-status-pill" id="receiptCurrentStatus">Sedang Diteruskan ke Mitra Toko</div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-outline-dark btn-block mt-2" id="btnCloseSuccessModal">
+          Tutup & Belanja Lagi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR (Fixed at bottom on Mobile Screen) -->
+  <nav class="customer-bottom-nav" id="customerBottomNav">
+    <button class="bottom-nav-item" id="btnMobileCart" title="Keranjang Belanja">
+      <div class="nav-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-counter" id="cartMobileBadge">0</span>
+      </div>
+      <span class="nav-label">Keranjang</span>
+    </button>
+
+    <button class="bottom-nav-item" id="btnMobileOrders" title="Riwayat Transaksi">
+      <div class="nav-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="20" x2="12" y2="10"></line>
+          <line x1="18" y1="20" x2="18" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="16"></line>
+        </svg>
+        <span class="nav-badge-dot hidden" id="orderActiveDot"></span>
+      </div>
+      <span class="nav-label">Transaksi</span>
+    </button>
+
+    <button class="bottom-nav-item" id="btnMobileAuth" title="Akun Pengguna">
+      <div class="nav-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <span class="nav-label" id="labelMobileAuth">Login</span>
+    </button>
+  </nav>
+
+  <!-- MODAL TRANSAKSI SAYA -->
+  <div class="modal-backdrop hidden" id="modalCustomerOrders">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Riwayat Transaksi</h3>
+        <button class="modal-close" id="btnCloseOrdersModal">&times;</button>
+      </div>
+      <div class="modal-body" id="customerOrdersContainer">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline-dark btn-block" id="btnDismissOrdersModal">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LOGIN PELANGGAN -->
+  <div class="modal-backdrop hidden" id="modalCustomerLogin">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Masuk Akun Pelanggan</h3>
+        <button class="modal-close" id="btnCloseLoginModal">&times;</button>
+      </div>
+      <form id="formCustomerLogin">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="loginInputName">Nama Lengkap</label>
+            <input type="text" id="loginInputName" class="form-input" placeholder="Contoh: Ibu Siti Aminah" required
+              value="Ibu Siti Aminah">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginInputPhone">Nomor WhatsApp</label>
+            <input type="tel" id="loginInputPhone" class="form-input" placeholder="Contoh: 0812-9876-5432" required
+              value="0812-9876-5432">
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline-dark" id="btnCancelLoginModal">Batal</button>
+          <button type="submit" class="btn btn-primary" id="btnDoLogin">Masuk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PROFIL PENGGUNA -->
+  <div class="modal-backdrop hidden" id="modalCustomerProfile">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Profil Pengguna</h3>
+        <button class="modal-close" id="btnCloseProfileModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="profile-avatar-row">
+          <div class="profile-avatar-circle" id="profileAvatarText">S</div>
+          <div>
+            <div class="font-bold text-sm" id="profileViewName">Ibu Siti Aminah</div>
+            <div class="text-xs text-muted" id="profileViewPhone">0812-9876-5432</div>
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label class="form-label" for="profileEditAddress">Alamat Pengantaran Default</label>
+          <textarea id="profileEditAddress" class="form-textarea"
+            rows="2">Jl. Melati Indah No. 18, RT 03/RW 05</textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline-danger" id="btnCustomerLogout">Keluar</button>
+        <button type="button" class="btn btn-primary" id="btnSaveProfile">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="toastBox">
+    <div class="toast-body" id="toastMessage">Pemberitahuan</div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="customer.js"></script>
+</body>
+
+</html>

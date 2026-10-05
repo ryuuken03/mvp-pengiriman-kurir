@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Mitra Usaha - Kelola Toko & Pesanan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="merchant.css">
+</head>
+
+<body>
+
+  <!-- TOP APP BAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-sub">Portal Mitra Usaha</div>
+          <h1 class="brand-title" id="navStoreName">Toko Berkah Kelontong</h1>
+        </div>
+      </div>
+
+      <div class="navbar-actions">
+        <!-- Store Open/Close Toggle Button -->
+        <button class="status-toggle-btn open" id="btnToggleStoreStatus" title="Ubah status operasional toko">
+          <span class="status-indicator-dot"></span>
+          <span id="storeStatusLabel">Toko Buka</span>
+        </button>
+
+        <a href="index.html" class="btn btn-outline-nav" id="btnBackToSimulator" title="Kembali ke Simulator 4 Layar">
+          Simulator Multi-Peran
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS (TOP SUBNAV ON DESKTOP & TABLET, FIXED BOTTOM NAVBAR ON MOBILE) -->
+  <nav class="subnav" id="merchantNav">
+    <div class="container subnav-inner">
+      <button class="tab-btn active" data-tab="orders" id="tabBtnOrders" title="Lihat antrean pesanan masuk">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span class="tab-badge" id="tabBadgeOrders">0</span>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Pesanan Masuk</span>
+          <span class="tab-label-short">Pesanan</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" data-tab="products" id="tabBtnProducts" title="Kelola katalog produk toko">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="tab-badge-neutral" id="tabBadgeProducts">0</span>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Katalog Produk</span>
+          <span class="tab-label-short">Katalog</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" data-tab="settings" id="tabBtnSettings" title="Pengaturan kios dan jam operasional">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+            </path>
+          </svg>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Pengaturan Kios</span>
+          <span class="tab-label-short">Pengaturan</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" data-tab="summary" id="tabBtnSummary" title="Ringkasan dan rekap penjualan toko">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="20" x2="12" y2="10"></line>
+            <line x1="18" y1="20" x2="18" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="16"></line>
+          </svg>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Rekap Penjualan</span>
+          <span class="tab-label-short">Rekap</span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN TAB CONTENT AREA -->
+  <main class="page-content container">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: PESANAN MASUK (LIVE QUEUE)          -->
+    <!-- ========================================== -->
+    <section class="tab-panel active" id="panel-orders">
+      <!-- Mini Summary KPIs -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value font-mono" id="statOrdersCount">0</div>
+          <div class="metric-label">Pesanan Perlu Diproses</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono text-primary" id="statRevenueToday">Rp 0</div>
+          <div class="metric-label">Omset Penjualan Hari Ini</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono" id="statCompletedCount">0</div>
+          <div class="metric-label">Pesanan Sukses Selesai</div>
+        </div>
+      </div>
+
+      <div class="section-title-wrap flex-between mt-3 mb-2" style="flex-wrap: wrap; gap: 8px;">
+        <div>
+          <h2 class="section-title">Antrean Pesanan Operasional</h2>
+        </div>
+        <div class="order-filter-pills" id="merchantOrderFilters">
+          <button type="button" class="filter-pill active" data-filter="ALL">Semua (<span id="countFilterAll">0</span>)</button>
+          <button type="button" class="filter-pill" data-filter="ACTIVE">Aktif (<span id="countFilterActive">0</span>)</button>
+          <button type="button" class="filter-pill" data-filter="COMPLETED">Selesai (<span id="countFilterCompleted">0</span>)</button>
+        </div>
+      </div>
+
+      <div class="orders-queue" id="merchantOrdersQueue">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: KATALOG PRODUK (CRUD)               -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="panel-products">
+      <div class="section-title-wrap flex-between mb-2">
+        <div>
+          <h2 class="section-title">Manajemen Produk Toko</h2>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-outline-dark" id="btnResetProductsDefault" title="Pulihkan 10 produk sembako standar">
+            Pulihkan Bawaan
+          </button>
+          <button class="btn btn-primary" id="btnOpenAddProductModal">
+            Tambah Produk
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Filter Category -->
+      <div class="product-filter-bar">
+        <div class="search-input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="filterProductQuery" class="form-input-clean"
+            placeholder="Cari nama barang atau kategori...">
+        </div>
+        <select id="filterProductCategory" class="form-select-clean">
+          <option value="Semua">Semua Kategori</option>
+          <option value="Beras">Beras</option>
+          <option value="Minyak Goreng">Minyak Goreng</option>
+          <option value="Gula & Tepung">Gula & Tepung</option>
+          <option value="Kebutuhan Dapur">Kebutuhan Dapur</option>
+          <option value="Paket Hemat">Paket Hemat</option>
+        </select>
+      </div>
+
+      <!-- Products Table / List -->
+      <div class="products-table-wrapper">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>Nama Produk</th>
+              <th>Kategori</th>
+              <th>Satuan / Ukuran</th>
+              <th>Harga Jual</th>
+              <th>Status Stok</th>
+              <th class="text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="merchantProductTbody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: PENGATURAN KIOS & HARI BUKA/TUTUP   -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="panel-settings">
+      <div class="section-title-wrap mb-2">
+        <h2 class="section-title">Informasi & Pengaturan Kios</h2>
+      </div>
+
+      <div class="settings-grid">
+        <!-- Profile Form -->
+        <div class="card settings-card">
+          <h3 class="card-subtitle">Profil & Identitas Kios</h3>
+
+          <div class="form-group mt-2">
+            <label class="form-label" for="settingStoreName">Nama Kios / Usaha</label>
+            <input type="text" id="settingStoreName" class="form-input" value="Toko Berkah Kelontong">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settingStorePhone">Nomor WhatsApp Usaha</label>
+            <input type="tel" id="settingStorePhone" class="form-input" value="0812-8877-6655">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settingStoreAddress">Alamat Lengkap Kios (Titik Penjemputan)</label>
+            <textarea id="settingStoreAddress" class="form-textarea"
+              rows="3">Jl. Mawar No. 12, Sektor 4, Komplek Niaga Mandiri</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settingPricingScheme">Skema Kerjasama Ongkir</label>
+            <select id="settingPricingScheme" class="form-select">
+              <option value="custom_flat">Skema Khusus: 0–10 km Flat Rp 5.000</option>
+              <option value="regular_km">Skema Reguler: Min Rp 8.000, Rp 2.000/km</option>
+            </select>
+            <span class="text-xs text-muted mt-1">Disesuaikan dengan perjanjian kemitraan platform kurir.</span>
+          </div>
+
+          <button class="btn btn-primary mt-2" id="btnSaveStoreProfile">
+            Simpan Perubahan Profil
+          </button>
+        </div>
+
+        <!-- Operational Hours Form -->
+        <div class="card settings-card">
+          <h3 class="card-subtitle">Jadwal Operasional & Hari Buka</h3>
+
+          <div class="form-group mt-2">
+            <label class="form-label">Hari Operasional Buka</label>
+            <div class="days-checkbox-grid" id="daysCheckboxGrid">
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Senin" checked> Senin</label>
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Selasa" checked> Selasa</label>
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Rabu" checked> Rabu</label>
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Kamis" checked> Kamis</label>
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Jumat" checked> Jumat</label>
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Sabtu" checked> Sabtu</label>
+              <label class="day-chip"><input type="checkbox" name="openDay" value="Minggu"> Minggu</label>
+            </div>
+          </div>
+
+          <div class="grid-2-col mt-2">
+            <div class="form-group">
+              <label class="form-label" for="settingOpenHour">Jam Buka</label>
+              <input type="time" id="settingOpenHour" class="form-input" value="07:00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="settingCloseHour">Jam Tutup</label>
+              <input type="time" id="settingCloseHour" class="form-input" value="21:00">
+            </div>
+          </div>
+
+
+
+          <button class="btn btn-secondary mt-2" id="btnSaveOperationalHours">
+            Simpan Jadwal Operasional
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: REKAP PENJUALAN                     -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="panel-summary">
+      <div class="section-title-wrap mb-2">
+        <h2 class="section-title">Rekapitulasi Penjualan & Keuangan Toko</h2>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value font-mono text-primary" id="rekapTotalOmset">Rp 0</div>
+          <div class="metric-label">Total Omset Barang (100% Hak Toko)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono" id="rekapCompletedOrders">0</div>
+          <div class="metric-label">Jumlah Pesanan Selesai</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono text-muted" id="rekapAverageBill">Rp 0</div>
+          <div class="metric-label">Rata-rata Nilai Belanja</div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <h3 class="card-subtitle mb-2">Riwayat Pesanan Tuntas</h3>
+        <div class="completed-orders-list" id="rekapCompletedList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL ADD / EDIT PRODUCT -->
+  <div class="modal-backdrop hidden" id="modalProductForm">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalProductTitle">Tambah Produk Baru</h3>
+        <button class="modal-close" id="btnCloseProductModal">&times;</button>
+      </div>
+
+      <form id="formProduct" class="modal-body">
+        <input type="hidden" id="editProductId" value="">
+
+        <div class="form-group">
+          <label class="form-label" for="prodFormName">Nama Barang / Produk</label>
+          <input type="text" id="prodFormName" class="form-input" placeholder="Contoh: Beras Ramos Super 5 kg" required>
+        </div>
+
+        <div class="grid-2-col">
+          <div class="form-group">
+            <label class="form-label" for="prodFormCategory">Kategori</label>
+            <select id="prodFormCategory" class="form-select" required>
+              <option value="Beras">Beras</option>
+              <option value="Minyak Goreng">Minyak Goreng</option>
+              <option value="Gula & Tepung">Gula & Tepung</option>
+              <option value="Kebutuhan Dapur">Kebutuhan Dapur</option>
+              <option value="Paket Hemat">Paket Hemat</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodFormUnit">Satuan / Kemasan</label>
+            <input type="text" id="prodFormUnit" class="form-input" placeholder="Contoh: Kemasan 5 kg / 2 Liter"
+              required>
+          </div>
+        </div>
+
+        <div class="grid-2-col">
+          <div class="form-group">
+            <label class="form-label" for="prodFormPrice">Harga Jual (Rp)</label>
+            <input type="number" id="prodFormPrice" class="form-input font-mono" placeholder="69000" min="100"
+              step="500" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodFormStatus">Status Ketersediaan</label>
+            <select id="prodFormStatus" class="form-select">
+              <option value="Tersedia">Tersedia</option>
+              <option value="Habis">Habis (Nonaktif)</option>
+              <option value="Terlaris">Terlaris</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-actions mt-3">
+          <button type="button" class="btn btn-outline-dark" id="btnCancelProductModal">Batal</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveProduct">Simpan Produk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="toastBox">
+    <div class="toast-body" id="toastMessage">Pemberitahuan</div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="merchant.js"></script>
+</body>
+
+</html>

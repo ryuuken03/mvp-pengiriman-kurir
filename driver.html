@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aplikasi Mitra Kurir - Penugasan & Pengantaran</title>
+  <link rel="stylesheet" href="driver.css">
+</head>
+
+<body>
+
+  <!-- ========================================== -->
+  <!-- HEADER & APP BRAND                         -->
+  <!-- ========================================== -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <div class="brand-icon">
+          <!-- Functional Motorcycle SVG Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="5.5" cy="17.5" r="3.5"></circle>
+            <circle cx="18.5" cy="17.5" r="3.5"></circle>
+            <path d="M15 6h-4l-3 5h6z"></path>
+            <path d="M18.5 17.5l-4-9-4 2"></path>
+            <path d="M5.5 17.5l3.5-6.5h5"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-sub">Mitra Kurir Lokal</div>
+          <div class="brand-title" id="driverIdentityName">Budi Santoso</div>
+        </div>
+      </div>
+
+      <div class="navbar-actions">
+        <!-- Online/Offline Toggle Button -->
+        <button class="status-toggle-btn online" id="btnToggleDriverOnline" title="Ubah status ketersediaan kurir">
+          <span class="status-indicator-dot"></span>
+          <span id="driverOnlineStatusLabel">Online (Siap)</span>
+        </button>
+
+        <a href="index.html" class="btn-outline-nav" id="btnBackToSimulator" title="Kembali ke Simulator 4 Layar">
+          Simulator
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- NAVIGATION TABS (TOP SUBNAV / BOTTOM NAV)  -->
+  <!-- ========================================== -->
+  <nav class="subnav" id="driverNav">
+    <div class="container subnav-inner">
+      <button class="tab-btn active" data-tab="orders" id="tabBtnOrders" title="Penugasan pengiriman dan order aktif">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <span class="tab-badge hidden" id="tabBadgeOffers">1</span>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Penugasan & Order</span>
+          <span class="tab-label-short">Penugasan</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" data-tab="wallet" id="tabBtnWallet" title="Buku kas, saldo, dan riwayat trip">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+          </svg>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Buku Kas & Riwayat</span>
+          <span class="tab-label-short">Buku Kas</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" data-tab="profile" id="tabBtnProfile" title="Profil kurir dan data kendaraan">
+        <div class="tab-icon-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <span class="tab-label">
+          <span class="tab-label-full">Profil Kendaraan</span>
+          <span class="tab-label-short">Profil</span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- MAIN CONTENT AREA                          -->
+  <!-- ========================================== -->
+  <main class="page-content container">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: PENUGASAN & ORDER AKTIF             -->
+    <!-- ========================================== -->
+    <section class="tab-panel active" id="panel-orders">
+      <!-- Status Banner -->
+      <div class="driver-status-banner online" id="driverStatusBanner">
+        <span class="indicator-pulse"></span>
+        <span id="driverStatusBannerText">Status: Siap Menerima Pesanan Penjemputan (Online)</span>
+      </div>
+
+      <!-- Driver Wallet Snapshot Cards -->
+      <div class="metrics-grid">
+        <div class="metric-card wallet-clean">
+          <div class="metric-value font-mono text-primary" style="color: #4ADE80;" id="kpiDriverEarnings">Rp 0</div>
+          <div class="metric-label">Pendapatan Bersih (Hak Kurir)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono" style="color: #D97706;" id="kpiDriverCashHeld">Rp 0</div>
+          <div class="metric-label">Kas Tunai COD yang Dipegang</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono" id="kpiDriverCompletedTrips">0</div>
+          <div class="metric-label">Pengantaran Sukses</div>
+        </div>
+      </div>
+
+      <!-- 1. ORDER OFFER CARD (PENJEMPUTAN BARU DARI TOKO) -->
+      <div id="driverOfferBox" class="driver-offer-card hidden">
+        <div class="offer-header">
+          <span class="badge-urgent">
+            <!-- Pulsing Bell Icon -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            Penawaran Penjemputan Baru
+          </span>
+          <span class="offer-order-id" id="offerOrderId">#ORD-9947</span>
+        </div>
+
+        <!-- Shop Info -->
+        <!-- <div class="offer-shop-box">
+          <div class="shop-icon-pin">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div>
+            <div class="offer-shop-name" id="offerShopName">Toko Berkah Kelontong</div>
+            <div class="offer-shop-addr" id="offerShopAddr">Jl. Mawar No. 12, Sektor 4, Komplek Niaga Mandiri</div>
+          </div>
+        </div> -->
+
+        <!-- Route Card -->
+        <div class="offer-route-card">
+          <div class="route-row">
+            <span class="route-dot pickup"></span>
+            <div class="route-info">
+              <span class="route-title">Titik Jemput:</span>
+              <span class="route-name" id="offerPickupName">Toko Berkah Kelontong</span>
+              <span class="route-address" id="offerPickupAddr">Jl. Mawar No. 12, Sektor 4</span>
+            </div>
+          </div>
+
+          <div class="route-row">
+            <span class="route-dot dropoff"></span>
+            <div class="route-info">
+              <span class="route-title">Titik Antar:</span>
+              <span class="route-name" id="offerCustomerName">Ibu Siti Aminah</span>
+              <span class="route-address" id="offerCustomerAddr">Jl. Melati Indah No. 18, RT 03/RW 05 (3.5 km)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cargo / Items Preview -->
+        <div class="cargo-preview-box">
+          <div class="cargo-preview-title">Muatan Barang yang Diantar:</div>
+          <div class="cargo-items-list" id="offerCargoList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Financial Strip: Payment Type & Driver Net Earnings -->
+        <div class="financial-strip">
+          <div class="payment-type-card" id="offerPaymentBadgeBox">
+            <span class="payment-type-label">Metode Pembayaran:</span>
+            <span class="payment-type-val" id="offerPaymentMethod">COD: Rp 74.000</span>
+          </div>
+
+          <div class="net-earn-card">
+            <span class="net-earn-label">Pendapatan Bersih Kurir:</span>
+            <span class="net-earn-val" id="offerNetEarnings">Rp 4.000</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="offer-actions-grid">
+          <button type="button" class="btn btn-outline btn-lg" id="btnRejectOffer">Lewati</button>
+          <button type="button" class="btn btn-primary btn-lg" id="btnAcceptOffer">Terima & Jalankan</button>
+        </div>
+      </div>
+
+      <!-- 2. ACTIVE TRIP CARD (PENUGASAN SEDANG BERJALAN) -->
+      <div id="driverActiveTripBox" class="driver-trip-card hidden">
+        <div class="trip-card-header">
+          <span class="badge-fase" id="tripFaseBadge">Fase 1: Menuju Toko</span>
+          <span class="font-mono font-bold" id="tripOrderId">#ORD-9947</span>
+        </div>
+
+        <!-- Step 1: Penjemputan Toko -->
+        <div class="trip-step-card" id="stepBoxPickup">
+          <div class="trip-step-header">
+            <span class="step-num-pill">Langkah 1 &bull; Lokasi Toko</span>
+            <a href="#" class="contact-action-btn" id="btnCallShop" target="_blank" title="Telepon Mitra Usaha">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                </path>
+              </svg>
+              Hubungi Toko
+            </a>
+          </div>
+
+          <div class="font-bold text-sm" id="tripStoreName">Toko Berkah Kelontong</div>
+          <div class="text-xs text-muted" id="tripStoreAddress">Jl. Mawar No. 12, Sektor 4, Komplek Niaga Mandiri</div>
+
+          <div class="cargo-preview-box mt-2">
+            <div class="cargo-preview-title">Barang yang Wajib Diambil:</div>
+            <div class="cargo-items-list" id="tripCargoList">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Pengantaran Pelanggan -->
+        <div class="trip-step-card" id="stepBoxDelivery">
+          <div class="trip-step-header">
+            <span class="step-num-pill">Langkah 2 &bull; Alamat Penerima</span>
+            <a href="#" class="contact-action-btn wa" id="btnChatCustomerWA" target="_blank"
+              title="Hubungi Pelanggan via WhatsApp">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+              </svg>
+              Chat WhatsApp
+            </a>
+          </div>
+
+          <div class="font-bold text-sm" id="tripCustomerName">Ibu Siti Aminah (0812-9876-5432)</div>
+          <div class="text-xs text-muted" id="tripCustomerAddress">Jl. Melati Indah No. 18, RT 03/RW 05 (3.5 km)</div>
+
+          <!-- Cash alert for COD vs QRIS -->
+          <div class="cash-alert-box cod mt-2" id="tripCashAlertBox">
+            <span id="tripCashAlertText">Tagihan Tunai COD: <b>Rp 74.000</b> (Wajib ditagih)</span>
+            <span class="font-mono font-bold" id="tripCashAlertAmount">Rp 74.000</span>
+          </div>
+        </div>
+
+        <!-- Progression Action Button -->
+        <div class="mt-2">
+          <button type="button" class="btn btn-primary btn-block btn-lg" id="btnTripNextStep">
+            Konfirmasi Pengambilan Barang
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. EMPTY STATE (MENUNGGU PENUGASAN) -->
+      <div class="empty-state" id="driverEmptyState">
+        <div class="empty-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="empty-title">Tidak Ada Penugasan Aktif</div>
+        <div class="empty-desc">
+          Pesanan penjemputan baru akan ditawarkan di sini saat mitra toko memanggil kurir.
+        </div>
+      </div>
+
+      <!-- 4. DAFTAR SELURUH TRANSAKSI & STATUS PESANAN -->
+      <div class="driver-orders-section mt-3">
+        <div class="section-title-wrap flex-between mb-2" style="flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h3 class="font-bold text-sm">Daftar Transaksi & Status Pesanan</h3>
+          </div>
+          <div class="order-filter-pills" id="driverOrderFilters">
+            <button type="button" class="filter-pill active" data-filter="ALL">Semua (<span id="driverCountAll">0</span>)</button>
+            <button type="button" class="filter-pill" data-filter="ACTIVE">Aktif (<span id="driverCountActive">0</span>)</button>
+            <button type="button" class="filter-pill" data-filter="COMPLETED">Selesai (<span id="driverCountCompleted">0</span>)</button>
+          </div>
+        </div>
+
+        <div class="driver-orders-list" id="driverOrdersList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: BUKU KAS & RIWAYAT PENGANTARAN      -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="panel-wallet">
+      <div class="flex-between mb-2">
+        <div>
+          <h2 class="font-bold" style="font-size: 1.05rem;">Buku Kas Operasional Kurir</h2>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card wallet-clean">
+          <div class="metric-value font-mono text-primary" style="color: #4ADE80;" id="walletTotalEarned">Rp 0</div>
+          <div class="metric-label">Akumulasi Pendapatan Bersih Kurir</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono" style="color: #D97706;" id="walletTotalCashCOD">Rp 0</div>
+          <div class="metric-label">Uang Kas Tunai COD yang Dipegang</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value font-mono" id="walletTotalTrips">0</div>
+          <div class="metric-label">Total Pesanan Tuntas</div>
+        </div>
+      </div>
+
+      <div class="history-list-box mt-3">
+        <h3 class="font-bold text-sm mb-2">Riwayat Pengantaran Tuntas</h3>
+        <div id="driverHistoryContainer">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: PROFIL KENDARAAN & IDENTITAS        -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="panel-profile">
+      <div class="flex-between mb-2">
+        <div>
+          <h2 class="font-bold" style="font-size: 1.05rem;">Profil Mitra Kurir</h2>
+          <p class="text-xs text-muted">Data identitas operasional, kendaraan roda dua, dan verifikasi.</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="flex-between">
+          <div class="font-bold" style="font-size: 1rem;">Budi Santoso</div>
+          <span class="status-pill open"
+            style="background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: 700;">Terverifikasi
+            Aktif</span>
+        </div>
+        <div class="text-xs text-muted mt-1">ID Mitra Kurir: <b>DRV-01</b> &bull; No. Telepon: <b>0812-8877-6655</b>
+        </div>
+        <div class="text-xs text-muted">Kendaraan: <b>Honda Beat ESP (Hitam)</b> &bull; Nomor Plat: <b
+            class="font-mono">B 4821 KLR</b></div>
+        <div class="text-xs text-muted mt-2" style="line-height: 1.4;">
+          Sistem pembagian komisi operasional: Kurir menerima 100% ongkir dikurangi biaya platform tetap Rp 1.000 per
+          pengantaran.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-box" id="driverToastBox">
+    <span id="driverToastMessage">Pemberitahuan kurir</span>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="driver.js"></script>
+</body>
+
+</html>
