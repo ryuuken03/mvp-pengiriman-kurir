@@ -1,145 +1,111 @@
-# GoMitra / LokalKirim - Simulator Operasional Multi-Peran (4-in-1 Split Screen)
+# GoMitra / LokalKirim - Simulator Operasional Multi-Peran (4-in-1 Hyperlocal Ecosystem)
 
-Dokumen ini menjelaskan cara pengoperasian prototipe antarmuka terintegrasi untuk platform logistik hyperlocal dan marketplace kemitraan (*Customer*, *Merchant*, *Driver*, dan *Admin*).
+[![GitHub Repository](https://img.shields.io/badge/GitHub-ryuuken03%2Fmvp--pengiriman--kurir-blue?logo=github)](https://github.com/ryuuken03/mvp-pengiriman-kurir)
+[![Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20Vanilla%20CSS%20%7C%20ES6%2B%20JS-green)](#teknologi)
+[![Standard](https://img.shields.io/badge/UX%20Standard-AGENTS.md%20Compliant-purple)](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/AGENTS.md)
 
-Prototipe ini dirancang khusus untuk memvalidasi alur operasional, manajemen produk mitra, pengaturan operasional kios, dan skema tarif bersama mitra bisnis tanpa memerlukan backend maupun database server.
+Prototipe antarmuka terintegrasi untuk platform logistik hyperlocal dan marketplace kemitraan (*Customer*, *Merchant*, *Driver*, dan *Admin*). Dirancang khusus untuk memvalidasi alur operasional, manajemen produk mitra, pengaturan operasional toko, dan skema pembagian tarif bersama mitra bisnis **tanpa memerlukan backend maupun database server**.
 
 ---
 
-## 1. Panduan Menjalankan Prototipe
+## 1. Panduan Menjalankan Aplikasi
 
 Aplikasi dibangun murni menggunakan teknologi web standar (**HTML5, Vanilla CSS, dan JavaScript modern**).
 
-### A. Simulator Multi-Peran (4 Layar Sekaligus)
-- Buka berkas `MVP/index.html` menggunakan peramban web modern (Google Chrome, Microsoft Edge, atau Mozilla Firefox).
-- Menampilkan 4 panel peran berdampingan dalam satu layar:
-  - **Panel 1:** Aplikasi Pelanggan (*Customer App* bergaya Abunawas Store).
-  - **Panel 2:** Portal Mitra Usaha (*Merchant Portal* lengkap dengan CRUD Produk & Pengaturan Kios).
-  - **Panel 3:** Aplikasi Mitra Kurir (*Driver PWA*).
-  - **Panel 4:** Panel Pengawas Operasional (*Super Admin / Operator*).
+### A. Simulator Multi-Peran (4 Layar Berdampingan)
+Buka berkas [MVP/index.html](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/index.html) menggunakan peramban web modern (Google Chrome, Microsoft Edge, Mozilla Firefox, dsb.):
+- **Panel 1 (Kiri Atas):** [Aplikasi Pelanggan](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/customer.html) (*Customer App* bergaya Abunawas Store).
+- **Panel 2 (Kanan Atas):** [Portal Mitra Usaha](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/merchant.html) (*Merchant Portal* lengkap dengan CRUD Produk & Pengaturan Kios).
+- **Panel 3 (Kiri Bawah):** [Aplikasi Mitra Kurir](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/driver.html) (*Driver PWA* lengkap dengan alur jemput-antar dan kas COD).
+- **Panel 4 (Kanan Bawah):** [Konsol Pengawas Operasional](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/admin.html) (*Super Admin / Operator*).
 
-### B. Membuka Aplikasi Mandiri (Mode Layar Penuh / Tampilan HP)
-Setiap aplikasi peran dapat dibuka langsung secara penuh di tab terpisah atau di peramban ponsel pintar melalui jaringan lokal:
-- **Aplikasi Pelanggan (Customer PWA):** Buka berkas `MVP/customer.html`
-- **Portal Mitra Usaha (Merchant Portal):** Buka berkas `MVP/merchant.html`
-- **Aplikasi Mitra Kurir (Driver PWA):** Buka berkas `MVP/driver.html`
-- **Konsol Pengawas Operasional (Super Admin):** Buka berkas `MVP/admin.html`
-- **Simulator 4 Panel Terintegrasi:** Buka berkas `MVP/index.html`
+### B. Mode Mandiri (Standalone / Layar Penuh Ponsel)
+Setiap aplikasi peran dapat dibuka secara mandiri pada tab peramban terpisah atau melalui smartphone di jaringan lokal:
+- **Pelanggan:** [MVP/customer.html](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/customer.html)
+- **Mitra Usaha:** [MVP/merchant.html](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/merchant.html)
+- **Mitra Kurir:** [MVP/driver.html](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/driver.html)
+- **Konsol Admin:** [MVP/admin.html](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/admin.html)
 
-Untuk pengujian antar perangkat ponsel melalui Wi-Fi lokal:
+Untuk menjalankan server lokal dan menguji lintas perangkat via Wi-Fi:
 ```bash
 npx serve MVP
 ```
 
 ---
 
-## 2. Fitur Lengkap Portal Mitra Usaha (`merchant.html`)
+## 2. Fitur Utama Masing-Masing Peran
 
-Portal Mitra Usaha menyediakan 4 modul utama:
+### 1. Aplikasi Pelanggan (`customer.html`)
+- **Identitas Toko Dinamis:** Menampilkan nama toko, alamat, jadwal hari buka, dan jam operasional yang tersinkronisasi otomatis dari pengaturan Portal Mitra.
+- **Navigasi Ergonomis & Responsif:**
+  - **Tampilan Desktop:** Bilah navigasi atas (*Top Command Bar*) memuat tombol *Keranjang Belanja*, *Daftar Transaksi*, dan *Profil / Masuk*.
+  - **Tampilan Ponsel (Mobile-First):** Bilah atas dibuat ringkas, menu navigasi beralih ke *Bottom Navigation Bar* tetap di bagian bawah layar (*Keranjang*, *Transaksi*, *Profil / Masuk*).
+- **Katalog Belanja Sembako:** Filter kategori, kartu produk dengan tombol kuantitas (*Plus/Minus*), dan pembaruan stok real-time.
+- **Checkout & Pilihan Pembayaran:** Opsi bayar tunai di tempat (**COD**) dan non-tunai (**QRIS**), pemilihan radius jarak pengantaran dengan kalkulasi ongkos kirim otomatis.
+- **Pelacakan Status Pesanan Real-Time:** Notifikasi status pesanan interaktif mulai dari konfirmasi toko hingga barang sampai di tujuan.
 
-### 1. Antrean Pesanan Masuk (*Live Order Queue*)
-- Peringatan audio bel otomatis setiap kali pelanggan membuat pesanan baru dari *Customer App*.
-- Rincian penerima: Nama pelanggan, nomor WhatsApp, alamat lengkap, dan jarak pengantaran.
-- Rincian belanja barang, metode pembayaran (COD / QRIS), dan total omset toko.
-- Alur aksi berjenjang:
-  - `Terima & Siapkan Pesanan` ➔ status berubah menjadi Sedang Disiapkan.
-  - `Siap Diambil (Panggil Kurir)` ➔ menyiarkan penugasan penjemputan barang ke kurir terdekat.
+### 2. Portal Mitra Usaha (`merchant.html`)
+- **Transparansi Seluruh Status Pesanan:**
+  - Antrean pesanan operasional menampilkan **seluruh transaksi tanpa disembunyikan** (*Status apapun tetap tampil: Pesanan Dibuat, Sedang Disiapkan, Menunggu Kurir, Kurir Menuju Toko, Dalam Pengantaran, Pesanan Selesai, dan Dibatalkan*).
+  - Dilengkapi pil filter status operasional: **Semua**, **Aktif**, dan **Selesai**.
+- **Aksi Operasional Toko Berjenjang:**
+  - `Terima & Siapkan Pesanan`: Mengubah status pesanan menjadi sedang dikemas.
+  - `Siap Diambil (Panggil Kurir)`: Menyiarkan penawaran penjemputan barang ke kurir terdekat.
+- **Manajemen & CRUD Produk:** Tambah produk baru, edit harga/satuan, hapus produk, switch cepat stok (*Tersedia / Habis*), dan tombol pemulihan 10 produk bawaan.
+- **Pengaturan Profil Toko:** Nama toko, nomor kontak WhatsApp, alamat penjemputan, saklar Buka/Tutup kios, jadwal hari buka, dan jam operasional.
+- **Buku Rekap Penjualan:** Akumulasi total omset bersih toko (100% hak pedagang).
 
-### 2. Manajemen & CRUD Katalog Produk
-- **Create (Tambah):** Menambahkan produk baru (Nama, Kategori, Satuan/Ukuran Kemasan, Harga Jual Rp, dan Status Ketersediaan).
-- **Read (Daftar):** Tabel katalog barang lengkap dengan pencarian nama dan filter kategori (*Beras, Minyak Goreng, Gula & Tepung, Kebutuhan Dapur, Paket Hemat*).
-- **Update (Edit):** Mengubah informasi produk atau harga sewaktu-waktu.
-- **Delete (Hapus):** Menghapus produk dari katalog toko.
-- **Quick Stock Switch:** Tombol ubah cepat status ketersediaan (*Tersedia* vs *Habis*).
-- *Catatan:* Perubahan produk di Portal Mitra langsung tersinkronisasi ke katalog belanja di *Customer App*.
+### 3. Aplikasi Mitra Kurir (`driver.html`)
+- **Penawaran Penjemputan Langsung (*Offer Card*):**
+  - Kartu penawaran berkedip saat toko memanggil kurir (`READY_FOR_PICKUP`), memuat rincian titik jemput (toko), titik antar (pelanggan), muatan barang, metode bayar (COD / QRIS), dan hak pendapatan bersih kurir.
+  - Tombol aksi stabil: **Terima & Jalankan** dan **Lewati**.
+- **Daftar Seluruh Transaksi & Status Transparan:**
+  - Kurir dapat memantau **seluruh pesanan di ekosistem** dengan status apapun (termasuk pesanan yang masih disiapkan toko, pesanan aktif, hingga pesanan tuntas).
+  - Dilengkapi filter status (*Semua*, *Aktif*, *Selesai*).
+  - Tombol aksi cepat *Terima & Jalankan Penjemputan* langsung tersedia di setiap kartu pesanan yang siap dijemput.
+- **Fase Pengantaran Terpandu (*Active Trip*):**
+  - **Fase 1 (Menuju Toko):** Verifikasi barang di kios dan konfirmasi pengambilan muatan.
+  - **Fase 2 (Menuju Pelanggan):** Fitur WhatsApp langsung ke pembeli, peringatan tagihan kas COD, dan konfirmasi serah terima barang.
+- **Buku Kas & Dompet Kurir:** Catatan akumulasi hak pendapatan bersih kurir (+Rp 4.000 per trip) dan pemisahan saldo kas tunai COD yang dipegang.
 
-### 3. Pengaturan Kios & Jadwal Buka/Tutup
-- **Status Toko Buka/Tutup:** Tombol switch cepat di bilah atas untuk membuka atau menutup penerimaan pesanan.
-- **Identitas Usaha:** Pengaturan nama kios/toko, nomor WhatsApp bisnis, dan alamat lengkap penjemputan kurir.
-- **Jadwal Hari Operasional:** Pilihan hari buka (*Senin s/d Minggu*).
-- **Jam Operasional:** Pengaturan jam buka dan jam tutup harian.
-- **Skema Kerjasama Ongkir:** Pilihan skema tarif flat khusus mitra (0–10 km Rp 5.000) vs skema reguler per km.
+### 4. Konsol Pengawas Operasional (`admin.html`)
+- **Buku Besar Transaksi (Ledger):** Log audit menyeluruh untuk seluruh pesanan di ekosistem platform.
+- **Manajemen Mitra Usaha & Mitra Kurir:** CRUD lengkap data mitra toko dan pengemudi armada logistik.
+- **Dynamic Pricing Engine:** Konfigurasi tarif per kilometer, tarif dasar minimum, skema flat kemitraan (0–10 km), dan potongan jasa platform (Rp 1.000 / transaksi).
 
-### 4. Rekapitulasi Penjualan
-- Akumulasi omset bersih barang toko (100% hak milik pedagang tanpa potongan sepihak).
-- Jumlah pesanan sukses dan rata-rata nilai transaksi belanja.
-- Riwayat transaksi tuntas.
-
----
-
-## 3. Alur Sinkronisasi Real-Time (Tanpa Database)
-
-Semua aplikasi menggunakan mekanisme **Client-Side State Synchronization**:
-1. **`BroadcastChannel` API:** Mengirimkan mutasi pesanan dan status secara instan antar tab dan antar frame.
-2. **`localStorage` (Kunci: `lokalkirim_clean_state`):** Menyimpan status operasional, antrean pesanan, dan katalog produk.
-3. **`window.addEventListener('storage')`:** Memastikan pembaruan data antar tab atau peramban berbeda tetap tersinkronisasi tanpa memerlukan *page refresh*.
-
----
-
-## 4. Alur Integrasi Panggil Kurir ke Mitra Kurir (`driver.html`)
-
-1. **Pemicu Penjemputan Toko:**
-   - Setelah Mitra Usaha menerima pesanan dan selesai mengemas barang, mitra menekan tombol **Siap Diambil (Panggil Kurir Penjemput)** di Portal Toko (`merchant.html`).
-   - Status pesanan berubah menjadi `READY_FOR_PICKUP`.
-2. **Penerimaan Penawaran di Aplikasi Kurir:**
-   - Aplikasi Kurir membunyikan nada dering peringatan (*driver ping audio*).
-   - Muncul kartu merah **Penawaran Penjemputan Baru** yang memuat seluruh data transaksi:
-     - Nomor Pesanan (`#ORD-XXXX`).
-     - Titik Jemput: Nama Toko dan Alamat Lengkap.
-     - Titik Antar: Nama Pelanggan, No. Telepon, Alamat Lengkap, dan Jarak (km).
-     - Rincian Muatan: Daftar nama barang dan kuantitas.
-     - Metode Pembayaran: Penanda jelas apakah **COD (Wajib tagih tunai)** atau **QRIS / Non-Tunai (Lunas)**.
-     - Hak Pendapatan Bersih Kurir: Ongkir dikurangi biaya platform tetap Rp 1.000.
-3. **Fase Operasional Kurir:**
-   - **Fase 1 (Menuju Toko):** Kurir menekan *Terima & Jalankan*, lalu mengonfirmasi fisik muatan dan menekan *Konfirmasi Pengambilan Barang di Toko*.
-   - **Fase 2 (Menuju Pelanggan):** Kurir membawa barang, dapat menghubungi nomor pelanggan via tautan langsung WhatsApp, dan menagih kas tunai jika metode COD.
-   - **Fase 3 (Selesai):** Kurir menekan *Konfirmasi Selesai & Kas COD Diterima*. Saldo pendapatan bersih kurir bertambah otomatis dan kas COD tercatat di Buku Kas Operasional.
+### 5. Simulator Terintegrasi (`index.html`)
+- **Pengendali Simulasi Alur Penuh (*Automated Walkthrough*):** Mengotomatisasi satu siklus penuh mulai dari order pelanggan -> disiapkan toko -> diambil kurir -> diantar -> kas COD tuntas diterima.
+- **Modal Reset Data Terpusat:**
+  - **Reset Transaksi & Buku Kas:** Mengosongkan pesanan dan saldo kas ke Rp 0 dengan tetap mempertahankan katalog produk dan profil mitra.
+  - **Reset Total (Standar Pabrik):** Memulihkan seluruh konfigurasi ke kondisi awal bawaan.
+  - **Pemulihan Parsial:** Memulihkan katalog produk, daftar toko, atau daftar kurir secara spesifik.
+  - *Dilengkapi auto-reload serentak ke-4 iframe tanpa dialog konfirmasi yang memblokir.*
 
 ---
 
-## 5. Fitur Konsol Pengawas Operasional & Super Admin (`admin.html`)
+## 3. Sinkronisasi Real-Time Tanpa Database
 
-Konsol Admin dirancang dengan terminologi formal industri logistik dan operasional:
-1. **Monitoring Transaksi Real-time:**
-   - Metrik KPI Utama: Volume GMV, Kas Pendapatan Platform (Rp 1.000 / order), Saldo Kas Tunai COD yang Dipegang Kurir, dan Rasio Pesanan Tuntas.
-   - Tabel Buku Besar Transaksi: Menampilkan log lengkap seluruh pesanan (ID, Waktu, Mitra Toko, Pelanggan, Kurir, Nilai Belanja, Ongkir, Fee Platform, Total Bayar, Metode, Status Semantik, dan Modal Detail Barang).
-   - Filter Pencarian: Pencarian nomor pesanan, nama pembeli, nama toko, serta filter status operasional.
-2. **Manajemen & CRUD Mitra Usaha (Merchant Management):**
-   - Daftar seluruh toko/kios mitra terdaftar beserta alamat, kontak WhatsApp, jumlah produk, dan status toko (*Buka/Tutup*).
-   - Tambah Toko Baru (*Create*), Edit Data Toko (*Update*), Ubah Cepat Status Buka/Tutup (*Switch*), dan Hapus Toko (*Delete*).
-3. **Manajemen & CRUD Mitra Kurir (Driver Management):**
-   - Daftar seluruh pengemudi armada logistik beserta jenis kendaraan, nomor plat polisi, status ketersediaan (*Online/Offline*), akumulasi pendapatan bersih, dan kas tunai COD.
-   - Tambah Kurir Baru (*Create*), Edit Profil & Plat Kendaraan (*Update*), Ubah Cepat Status Kehadiran (*Switch*), dan Hapus Kurir (*Delete*).
-4. **Dynamic Pricing Engine:**
-   - Pengaturan tarif dasar minimum, tarif per kilometer, batas kilometer tarif flat khusus kemitraan, nominal tarif flat, dan biaya jasa platform.
-5. **Modul Reset Data Operasional:**
-   - Menu Reset Transaksi & Kas Tunai COD, Reset Seluruh Ekosistem ke Standar Pabrik, Pulihkan Mitra Toko, dan Pulihkan Mitra Kurir.
+Aplikasi menerapkan arsitektur *Decoupled Client-Side State Synchronization*:
+1. **`BroadcastChannel` API (`lokalkirim_pwa_sim`):** Menyiarkan mutasi status transaksi secara instan antar frame dan tab peramban.
+2. **`localStorage` (`lokalkirim_clean_state`):** Persistensi data lokal yang konsisten dan tahan muat ulang (*reload*).
+3. **`window.addEventListener('storage')`:** Mekanisme fallback reaktif untuk sinkronisasi antar jendela peramban.
+4. **Modul Sentral [MVP/shared.js](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/MVP/shared.js):** Pusat data kanonikal, fungsi kalkulasi tarif, dan fungsi reset granular yang dipakai seragam oleh seluruh peran.
 
 ---
 
-## 6. Modul Sentral `shared.js` & Mekanisme Reset Granular
+## 4. Standar Desain & Copywriting (Sesuai `AGENTS.md`)
 
-Untuk menjamin konsistensi data antar 4 peran dan mencegah desinkronisasi master data, MVP kini dilengkapi modul sentral [`shared.js`](file:///MVP/shared.js):
+Seluruh tampilan dan teks pada prototipe ini mengacu pada standar pengembangan [AGENTS.md](file:///c:/Project/solusi.toriq/Zulfiar%20Ryan/Project%20Kurir%20Mirip%20Gojek/AGENTS.md):
+- **Bebas Polusi Ikon & Emoji:** Tanpa emoji dekoratif (seperti 🚀, 🔥, 👨‍🍳). Seluruh elemen mengandalkan tipografi modern (*Plus Jakarta Sans* & *JetBrains Mono*) dan ikon SVG monokrom fungsional.
+- **Anti-Redudansi Teks:** Menghilangkan kalimat pengantar basa-basi atau paragraf instruksional yang tidak bernilai operasional.
+- **Bahasa Indonesia Baku & Lugas:** Menggunakan terminologi resmi industri logistik/finansial (*Pesanan Dibuat*, *Sedang Disiapkan Toko*, *Menunggu Kurir*, *Dalam Pengantaran*, *Pesanan Selesai*).
+- **Mobile-First & Ergonomis:** Target sentuh tombol minimal 44px × 44px, bilah aksi cepat, dan navigasi bawah yang mudah dijangkau satu tangan.
 
-1. **Master Data Kanonikal Terpadu:**
-   - **Mitra Toko:** 3 Merchant (`Toko Berkah Kelontong`, `Ayam Geprek Sambal Bawang`, `Apotek Barokah Sehat`).
-   - **Katalog Produk:** 10 produk sembako standar lengkap dengan foto icon SVG, kategori, ukuran kemasan, harga, dan stok.
-   - **Mitra Kurir:** 3 Pengemudi armada (`Budi Santoso`, `Agus Priyanto`, `Dedi Suryana`) dengan sinkronisasi dompet dan kas COD.
-   - **Aturan Tarif:** Tarif flat mitra (0–10 km Rp 5.000) dan tarif reguler per km.
+---
 
-2. **Opsi Reset Granular:**
-   - **Reset Transaksi Saja (`resetTransactionsOnly`):**
-     Mengosongkan antrean pesanan, saldo kas COD kurir, hak pendapatan kurir, omset toko, dan GMV platform ke Rp 0. Data toko, katalog produk, dan armada kurir **tetap dipertahankan**.
-   - **Reset Total Standar Pabrik (`resetAllDataToDefault`):**
-     Mengembalikan seluruh ekosistem ke data awal pabrik.
-   - **Pulihkan Produk Bawaan (`resetMerchantProductsToDefault`):**
-     Mengembalikan katalog produk Toko Berkah ke 10 produk sembako standar.
-   - **Pulihkan Mitra Toko (`resetMerchantsOnlyToDefault`):**
-     Mengembalikan daftar toko ke 3 mitra standar.
-   - **Pulihkan Mitra Kurir (`resetDriversOnlyToDefault`):**
-     Mengembalikan armada pengemudi ke 3 driver standar.
+## 5. Repositori Git
 
-3. **Simulasi Alur Penuh (Automated Walkthrough):**
-   - Menjalankan 1 siklus transaksi lengkap dari pembuatan pesanan oleh Pelanggan -> diterima Toko -> dipanggil Kurir -> diterima Kurir -> diambil di Toko -> diantar ke Pelanggan -> konfirmasi serah terima & kas COD selesai.
-
-
+Repositori proyek ini telah dikonfigurasi secara lokal dan terhubung ke GitHub:
+- **Remote URL:** `git@github.com:ryuuken03/mvp-pengiriman-kurir.git`
+- **Branch Utama:** `main`
+- **Akun Pemilik:** `ryuuken03`
